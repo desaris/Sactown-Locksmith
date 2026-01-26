@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sactown Locks | Professional & Affordable Locksmith in Sacramento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/reset.css">
+    <script src="/script.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="/" class="header__logo">
+                    <img src="/images/sactownlogowithouttel.png" alt="Sactown Locks Logo" class="header__logo-img">
+                </a>
+
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li><a href="/" class="header__nav-link">Home</a></li>
+                        <li><a href="#services" class="header__nav-link">Services</a></li>
+                        <li><a href="#why-us" class="header__nav-link">Why Us</a></li>
+                        <li><a href="#service-area" class="header__nav-link">Service Area</a></li>
+                    </ul>
+
+                    <a href="tel:+19164767646" class="header__phone">
+                        <i class="fas fa-phone"></i>
+                        (916) 476 7646
+                    </a>
+                </nav>
+
+                <button class="header__burger" id="burgerButton">
+                    <svg class="header__burger-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 7V5H21V7H3ZM3 19V17H21V19H3ZM3 13V11H21V13H3Z" fill="#0D0D0D" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero__inner">
+                    <div class="hero__content">
+                        <h1 class="hero__title ">Professional & Affordable <span>Locksmith in Sacramento</span>
+                        </h1>
+                        <p class="hero__description ">24/7 Emergency Mobile Locksmith Services - Fast Response,
+                            Professional Work, Fair Prices. </p>
+
+                        <div class="hero__buttons ">
+                            <a href="tel:+19164767646" class="button hero__button">
+                                <i class="fas fa-phone"></i>
+                                CALL ME NOW
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hero__form ">
+                        <h3 class="hero__form-title">Get Your Free Quote</h3>
+                        <p class="hero__form-subtitle">Or leave <span>your contact</span> information and I will call
+                            you back within 15 minutes</p>
+
+                        <form class="hero__form-inner">
+                            <input id="hero__form-input-name" type="text" class="hero__form-input" placeholder="Name"
+                                required>
+                            <input id="hero__form-input-surname" type="text" class="hero__form-input"
+                                placeholder="Surname" required>
+                            <input id="hero__form-input-tel" type="tel" class="hero__form-input"
+                                placeholder="Phone Number" required>
+                            <select id="hero__form-input-select" class="hero__form-input">
+                                <option value="">Select Service Needed</option>
+                                <option value="car-lockout">Car Lockout</option>
+                                <option value="house-lockout">House Lockout</option>
+                                <option value="rekey">Rekey Service</option>
+                                <option value="commercial">Commercial</option>
+                            </select>
+                            <button type="submit" class="button hero__form-submit">
+                                <i class="fas fa-paper-plane"></i>
+                                SEND REQUEST
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <h2 class="section-title">My professional services</h2>
+                <p class="section-subtitle">I offer comprehensive locksmith services for residential, commercial, and
+                    automotive needs in Sacramento.</p>
+
+                <div class="services__grid">
+                    <!-- Car Locksmith -->
+                    <div class="services__card ">
+                        <div class="services__card-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3 class="services__card-title">Car Locksmith</h3>
+                        <p class="services__card-description">Emergency auto lockout service for all vehicle makes and
+                            models in Sacramento. Keys locked in car? I'm right there!</p>
+                    </div>
+
+                    <!-- Residential Locksmith -->
+                    <div class="services__card ">
+                        <div class="services__card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="services__card-title">Residential Locksmith</h3>
+                        <p class="services__card-description">House lockout solutions and security upgrades for
+                            Sacramento families. Fast, reliable, and affordable service.</p>
+                    </div>
+
+                    <!-- Commercial Locksmith -->
+                    <div class="services__card ">
+                        <div class="services__card-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="services__card-title">Commercial Locksmith</h3>
+                        <p class="services__card-description">Business security solutions for offices, stores, and
+                            industrial facilities in Sacramento area.</p>
+                    </div>
+
+                    <!-- Safes & Locks -->
+                    <div class="services__card ">
+                        <div class="services__card-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="services__card-title">Safes & Locks</h3>
+                        <p class="services__card-description">Install the best-in-class safes and locks; professional
+                            installation and repair services available.</p>
+                    </div>
+
+                    <!-- Rekey Services -->
+                    <div class="services__card ">
+                        <div class="services__card-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3 class="services__card-title">Rekey Services</h3>
+                        <p class="services__card-description">Professional lock rekeying services in Sacramento. Change
+                            your locks without replacing them entirely.</p>
+                    </div>
+
+                    <!-- Emergency Service -->
+                    <div class="services__card ">
+                        <div class="services__card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3 class="services__card-title">24/7 Emergency</h3>
+                        <p class="services__card-description">Available round the clock for emergency lockout
+                            situations. Nights, weekends, and holidays included.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us Section -->
+        <section class="why-us" id="why-us">
+            <div class="container">
+                <h2 class="section-title">Why Choose Sactown Locks?</h2>
+                <p class="section-subtitle">I stand out from other locksmith services in Sacramento for several
+                    important reasons.</p>
+
+                <div class="why-us__grid">
+                    <div class="why-us__card ">
+                        <div class="why-us__card-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="why-us__card-title">Fast Response</h3>
+                        <p class="why-us__card-text">Average 15-30 minute response time in most Sacramento areas.</p>
+                    </div>
+
+                    <div class="why-us__card ">
+                        <div class="why-us__card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="why-us__card-title">Licensed & Insured</h3>
+                        <p class="why-us__card-text">Fully licensed, bonded, and insured for your peace of mind.</p>
+                    </div>
+
+                    <div class="why-us__card ">
+                        <div class="why-us__card-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="why-us__card-title">Upfront Pricing</h3>
+                        <p class="why-us__card-text">No hidden fees. I provide clear pricing before any work begins.
+                        </p>
+                    </div>
+
+                    <div class="why-us__card ">
+                        <div class="why-us__card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="why-us__card-title">24/7 Availability</h3>
+                        <p class="why-us__card-text">Emergency services available 24 hours a day, 7 days a week.</p>
+                    </div>
+
+                    <div class="why-us__card ">
+                        <div class="why-us__card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="why-us__card-title">5-Star Reviews</h3>
+                        <p class="why-us__card-text">Rated 4.9/5 by hundreds of satisfied Sacramento customers.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Area Section -->
+        <section class="service-area" id="service-area">
+            <div class="container">
+                <h2 class="section-title">Service Area</h2>
+                <p class="section-subtitle">I serve Sacramento and all surrounding cities with fast, reliable
+                    locksmith services.</p>
+
+                <div class="service-area__items">
+                    <div class="service-area__item ">Downtown Sacramento</div>
+                    <div class="service-area__item ">Midtown</div>
+                    <div class="service-area__item ">Arden-Arcade</div>
+                    <div class="service-area__item ">Natomas</div>
+                    <div class="service-area__item ">South Sacramento</div>
+                    <div class="service-area__item ">Carmichael</div>
+                    <div class="service-area__item ">Elk Grove</div>
+                    <div class="service-area__item ">Citrus Heights</div>
+                    <div class="service-area__item ">Roseville</div>
+                    <div class="service-area__item ">Folsom</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2 class="cta__title ">Locked Out? Need Emergency Help?</h2>
+                <p class="cta__subtitle ">24/7 available to help with any lockout or security emergency in
+                    Sacramento. Call now for immediate assistance.
+                </p>
+
+                <div class="cta__buttons ">
+                    <a href="tel:+19164767646" class="button cta__button">
+                        <i class="fas fa-phone"></i>
+                        CALL NOW: (916) 476 7646
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__column">
+                    <a href="/" class="footer__logo">
+                        <img src="/images/sactownlogowithouttel.png" alt="Sactown Locks Logo" class="footer__logo-img">
+                    </a>
+                    <p class="footer__about">
+                        I committed to providing fast, reliable, and affordable locksmith solutions 24/7.
+                    </p>
+                </div>
+
+                <div class="footer__column">
+                    <h6 class="footer__title">Quick Links</h6>
+                    <ul class="footer__list">
+                        <li><a href="/" class="footer__link"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#services" class="footer__link"><i class="fas fa-chevron-right"></i> Services</a>
+                        </li>
+                        <li><a href="#why-us" class="footer__link"><i class="fas fa-chevron-right"></i> Why Choose
+                            Sactown Locks?</a></li>
+                        <li><a href="#service-area" class="footer__link"><i class="fas fa-chevron-right"></i> Service
+                                Area</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h6 class="footer__title">Services</h6>
+                    <ul class="footer__list">
+                        <li>
+                            <div class="footer__link"><i class="fas fa-car"></i> Car Locksmith</div>
+                        </li>
+                        <li>
+                            <div class="footer__link"><i class="fas fa-home"></i> Residential Locksmith</div>
+                        </li>
+                        <li>
+                            <div class="footer__link"><i class="fas fa-building"></i> Commercial Locksmith
+                            </div>
+                        </li>
+                        <li>
+                            <div class="footer__link"><i class="fas fa-key"></i> Rekey Services</div>
+                        </li>
+                        <li>
+                            <div class="footer__link"><i class="fas fa-lock"></i> Safes & Locks</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h6 class="footer__title">Contact Me</h6>
+                    <ul class="footer__list">
+                        <li><a href="tel:+19164767646" class="footer__link"><i class="fas fa-phone"></i> (916) 476 7646 </a></li>
+                        <li><a href="mailto:info@sactownlocks.com" class="footer__link"><i class="fas fa-envelope"></i>
+                                info@sactownlocks.com</a></li>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>© 2026 Sactown Locks. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
