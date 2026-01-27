@@ -521,7 +521,6 @@ section {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--black);
-    margin-bottom: 4px;
     text-align: left;
 }
 
@@ -836,6 +835,7 @@ section {
 .footer__list--socials {
     flex-direction: row;
     align-items: end;
+    gap: 25px;
 }
 
 .footer__list--socials li{
