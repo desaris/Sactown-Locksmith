@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var telInput = document.getElementById('hero__form-input-tel');
     var maskOptions = {
         mask: '+{1}(000) 000-0000',
-        lazy: false
+        lazy: true,
     } 
     var mask = new IMask(telInput, maskOptions);
     // Mobile Navigation Toggle
