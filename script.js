@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } 
     var mask = new IMask(telInput, maskOptions);
 
-    
     // Mobile Navigation Toggle
-
     const burgerButton = document.getElementById('burgerButton');
     const headerNav = document.querySelector('.header__nav');
 
@@ -24,69 +22,248 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-
-    // Mask validation
-
-    telInput.addEventListener('input', function() {
-        this.style.borderColor = '';
-        this.style.boxShadow = '';
-        
-        const errorElement = this.parentNode.querySelector('.phone-error');
-        if (errorElement) {
-            errorElement.remove();
-        }
-    });
-
-    document.querySelector('.hero__form-inner').addEventListener('submit', function (e) {
+    // Form submission (PRODUCTION VERSION for hosting)
+    document.querySelector('.hero__form-inner').addEventListener('submit', async function (e) {
         e.preventDefault();
 
-
         const phoneDigits = mask.unmaskedValue; 
+        const nameInput = document.getElementById('hero__form-input-name');
+        const name = nameInput.value.trim();
         
+        // Validation - Name
+        if (!name) {
+            nameInput.style.borderColor = '#ef4444';
+            nameInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
+            showNotification('Please enter your name', 'error');
+            return;
+        } else {
+            nameInput.style.borderColor = '';
+            nameInput.style.boxShadow = '';
+        }
+        
+        // Validation - Phone
         if (phoneDigits.length !== 11) {
-
             telInput.style.borderColor = '#ef4444';
             telInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
-            
-
-            const errorElement = document.createElement('div');
-            errorElement.className = 'phone-error';
-            errorElement.textContent = 'Please enter a complete phone number!';
-            errorElement.style.cssText = `
-                color: #ef4444;
-                font-size: 14px;
-                margin-top: 6px;
-                font-weight: 500;
-            `;
-            
-            const oldError = telInput.parentNode.querySelector('.phone-error');
-            if (oldError) oldError.remove();
-            
-            telInput.parentNode.appendChild(errorElement);
             telInput.focus();
             
+            showNotification('Please enter a valid phone number', 'error');
             return; 
         }
         
-        // Show success message
         const submitButton = this.querySelector('.hero__form-submit');
         const originalText = submitButton.innerHTML;
+        const originalBg = submitButton.style.background;
 
-        submitButton.innerHTML = '<i class="fas fa-check"></i> REQUEST SENDED!';
-        submitButton.style.background = '#10b981';
-
-        setTimeout(() => {
-            submitButton.innerHTML = originalText;
-            submitButton.style.background = '';
-            this.reset();
-            mask.updateValue();
-        }, 3000);
+        // Show loading state
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
+        submitButton.style.background = '#6b7280';
+        submitButton.disabled = true;
+        submitButton.style.cursor = 'not-allowed';
+        
+        try {
+            // ===== PRODUCTION: Real server request =====
+            const formData = new FormData(this);
+            
+            const response = await fetch('sendmail.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Success - show success state
+                submitButton.innerHTML = '<i class="fas fa-check"></i> REQUEST SENT!';
+                submitButton.style.background = '#10b981';
+                showNotification('Message sent successfully! We will contact you soon.', 'success');
+                
+                // Reset form on success after 3 seconds
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.style.background = originalBg;
+                    submitButton.disabled = false;
+                    submitButton.style.cursor = 'pointer';
+                    this.reset();
+                    mask.updateValue();
+                }, 3000);
+                
+            } else {
+                throw new Error(result.message || 'Failed to send message');
+            }
+            
+        } catch (error) {
+            console.error('Send error:', error);
+            
+            // Show error state
+            submitButton.innerHTML = '<i class="fas fa-times"></i> ERROR!';
+            submitButton.style.background = '#ef4444';
+            
+            // Show error notification
+            showNotification(error.message || 'Failed to send message. Please try again.', 'error');
+            
+            // On error: restore button but KEEP form data for correction
+            setTimeout(() => {
+                submitButton.innerHTML = originalText;
+                submitButton.style.background = originalBg;
+                submitButton.disabled = false;
+                submitButton.style.cursor = 'pointer';
+            }, 5000);
+        }
     });
 
+    // Function to show notifications
+    function showNotification(message, type = 'info') {
+        // Remove existing notification if any
+        const existingNotification = document.querySelector('.form-notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+        
+        // Create new notification
+        const notification = document.createElement('div');
+        notification.className = `form-notification form-notification-${type}`;
+        
+        // Icon based on type
+        let icon = '';
+        switch(type) {
+            case 'success':
+                icon = '<i class="fas fa-check-circle"></i>';
+                break;
+            case 'error':
+                icon = '<i class="fas fa-exclamation-circle"></i>';
+                break;
+            case 'info':
+                icon = '<i class="fas fa-info-circle"></i>';
+                break;
+            default:
+                icon = '<i class="fas fa-info-circle"></i>';
+        }
+        
+        notification.innerHTML = `
+            <div class="notification-icon">${icon}</div>
+            <div class="notification-content">${message}</div>
+            <button class="notification-close">&times;</button>
+        `;
+        
+        // Styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            padding: 18px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            z-index: 99999;
+            animation: notificationSlideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 420px;
+            min-width: 320px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+        
+        // Colors based on type
+        switch(type) {
+            case 'success':
+                notification.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                break;
+            case 'error':
+                notification.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                break;
+            case 'info':
+                notification.style.background = 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
+                break;
+        }
+        
+        // Icon styles
+        notification.querySelector('.notification-icon').style.cssText = `
+            font-size: 24px;
+            opacity: 0.9;
+        `;
+        
+        // Content styles
+        notification.querySelector('.notification-content').style.cssText = `
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.4;
+        `;
+        
+        // Close button styles
+        notification.querySelector('.notification-close').style.cssText = `
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.7;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        `;
+        
+        // Close handler
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            notification.style.animation = 'notificationSlideOut 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
+        });
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after time
+        const autoRemoveTime = type === 'error' ? 5000 : 4000;
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.style.animation = 'notificationSlideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }
+        }, autoRemoveTime);
+    }
+    
+    // Add notification animation styles
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes notificationSlideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes notificationSlideOut {
+                from {
+                    transform: translateX(0) ;
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            .notification-close:hover {
+                opacity: 1 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Intersection Observer for animations
     const allSections = document.querySelectorAll('section');
-
-
-    // Intersection Observer
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -103,5 +280,4 @@ document.addEventListener('DOMContentLoaded', function() {
     allSections.forEach(section => {
         observer.observe(section);
     });
-    
-})
+});
