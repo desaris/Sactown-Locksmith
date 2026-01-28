@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
             errorElement.remove();
         }
     });
-
     
     document.querySelector('.hero__form-inner').addEventListener('submit', function (e) {
         e.preventDefault();
