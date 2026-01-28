@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
         lazy: true,
     } 
     var mask = new IMask(telInput, maskOptions);
+
+    
     // Mobile Navigation Toggle
 
     const burgerButton = document.getElementById('burgerButton');
@@ -22,13 +24,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-  
 
-    // Form Submission
+    // Mask validation
 
+    telInput.addEventListener('input', function() {
+        this.style.borderColor = '';
+        this.style.boxShadow = '';
+        
+        const errorElement = this.parentNode.querySelector('.phone-error');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    });
+
+    
     document.querySelector('.hero__form-inner').addEventListener('submit', function (e) {
         e.preventDefault();
 
+
+        const phoneDigits = mask.unmaskedValue; 
+        
+        if (phoneDigits.length !== 11) {
+
+            telInput.style.borderColor = '#ef4444';
+            telInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
+            
+
+            const errorElement = document.createElement('div');
+            errorElement.className = 'phone-error';
+            errorElement.textContent = 'Please enter a complete phone number!';
+            errorElement.style.cssText = `
+                color: #ef4444;
+                font-size: 14px;
+                margin-top: 6px;
+                font-weight: 500;
+            `;
+            
+            const oldError = telInput.parentNode.querySelector('.phone-error');
+            if (oldError) oldError.remove();
+            
+            telInput.parentNode.appendChild(errorElement);
+            telInput.focus();
+            
+            return; 
+        }
+        
         // Show success message
         const submitButton = this.querySelector('.hero__form-submit');
         const originalText = submitButton.innerHTML;
@@ -40,6 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.innerHTML = originalText;
             submitButton.style.background = '';
             this.reset();
+            // Также сбрасываем маску IMask
+            mask.updateValue();
         }, 3000);
     });
 
@@ -65,4 +107,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 })
-
