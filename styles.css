@@ -169,7 +169,7 @@ section {
 
 /* ===== HEADER ===== */
 .header {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -981,7 +981,7 @@ section {
 
     .header__nav {
         transform: translateY(-150%);
-        position: fixed;
+        position: absolute;
         top: 80px;
         left: 0;
         right: 0;
