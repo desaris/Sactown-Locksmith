@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             errorElement.remove();
         }
     });
-    
+
     document.querySelector('.hero__form-inner').addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.innerHTML = originalText;
             submitButton.style.background = '';
             this.reset();
-            // Также сбрасываем маску IMask
             mask.updateValue();
         }, 3000);
     });
