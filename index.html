@@ -70,11 +70,21 @@
                         <p class="hero__form-subtitle">Just leave <span>your contact</span> information and we will call
                             you right back</p>
 
-                        <form class="hero__form-inner">
+                        <!-- Netlify contact form -->
+                        <form class="hero__form-inner" name="contact" method="POST" data-netlify="true"
+                            data-netlify-honeypot="bot-field">
+                            <!-- Netlify form name -->
+                            <input type="hidden" name="form-name" value="contact">
+                            <!-- Honeypot field -->
+                            <p style="display:none;">
+                                <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                            </p>
+
                             <input id="hero__form-input-name" name="name" type="text" class="hero__form-input"
                                 placeholder="Your name" required>
                             <input id="hero__form-input-tel" name="phone" type="tel" class="hero__form-input"
                                 placeholder="Phone Number" required>
+
 
                             <button type="submit" class="button hero__form-submit">
                                 <i class="fas fa-paper-plane"></i>

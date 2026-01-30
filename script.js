@@ -22,20 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission (PRODUCTION VERSION for hosting)
-    document.querySelector('.hero__form-inner').addEventListener('submit', async function (e) {
-        e.preventDefault();
-
+    // Form submission (Netlify Forms + фронтенд-валидация)
+    document.querySelector('.hero__form-inner').addEventListener('submit', function (e) {
         const phoneDigits = mask.unmaskedValue; 
         const nameInput = document.getElementById('hero__form-input-name');
         const name = nameInput.value.trim();
         
+        let hasError = false;
+
         // Validation - Name
         if (!name) {
+            hasError = true;
             nameInput.style.borderColor = '#ef4444';
             nameInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
             showNotification('Please enter your name', 'error');
-            return;
         } else {
             nameInput.style.borderColor = '';
             nameInput.style.boxShadow = '';
@@ -43,72 +43,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Validation - Phone
         if (phoneDigits.length !== 11) {
+            hasError = true;
             telInput.style.borderColor = '#ef4444';
             telInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
             telInput.focus();
-            
             showNotification('Please enter a valid phone number', 'error');
-            return; 
+        } else {
+            telInput.style.borderColor = '';
+            telInput.style.boxShadow = '';
         }
-        
-        const submitButton = this.querySelector('.hero__form-submit');
-        const originalText = submitButton.innerHTML;
-        const originalBg = submitButton.style.background;
 
-        // Show loading state
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
-        submitButton.style.background = '#6b7280';
-        submitButton.disabled = true;
-        submitButton.style.cursor = 'not-allowed';
-        
-        try {
-            // ===== PRODUCTION: Real server request =====
-            const formData = new FormData(this);
-            
-            const response = await fetch('sendmail.php', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                // Success - show success state
-                submitButton.innerHTML = '<i class="fas fa-check"></i> REQUEST SENT!';
-                submitButton.style.background = '#10b981';
-                showNotification('Message sent successfully! We will contact you soon.', 'success');
-                
-                // Reset form on success after 3 seconds
-                setTimeout(() => {
-                    submitButton.innerHTML = originalText;
-                    submitButton.style.background = originalBg;
-                    submitButton.disabled = false;
-                    submitButton.style.cursor = 'pointer';
-                    this.reset();
-                    mask.updateValue();
-                }, 3000);
-                
-            } else {
-                throw new Error(result.message || 'Failed to send message');
-            }
-            
-        } catch (error) {
-            console.error('Send error:', error);
-            
-            // Show error state
-            submitButton.innerHTML = '<i class="fas fa-times"></i> ERROR!';
-            submitButton.style.background = '#ef4444';
-            
-            // Show error notification
-            showNotification(error.message || 'Failed to send message. Please try again.', 'error');
-            
-            // On error: restore button but KEEP form data for correction
-            setTimeout(() => {
-                submitButton.innerHTML = originalText;
-                submitButton.style.background = originalBg;
-                submitButton.disabled = false;
-                submitButton.style.cursor = 'pointer';
-            }, 5000);
+        // Если есть ошибки — отменяем отправку, иначе даём Netlify самому обработать POST
+        if (hasError) {
+            e.preventDefault();
+            return;
         }
     });
 
